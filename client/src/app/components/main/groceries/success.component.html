@@ -1,0 +1,76 @@
+<div class="success-container">
+    @if (isLoading) {
+        <div class="spinner-overlay">
+          <div class="pulse-loader">
+            <span class="pulse-dot"></span>
+            <span class="pulse-text">Loading your order details...</span>
+          </div>
+        </div>
+      }
+  
+    <div *ngIf="!isLoading && orderDetails" class="success-card">
+      <div class="success-header">
+        <i class="pi pi-check-circle success-icon"></i>
+        <h1>Order Confirmed!</h1>
+        <p>Thank you for your purchase. A confirmation has been sent to your email.</p>
+      </div>
+  
+      <div class="order-summary">
+        <h2>Order Summary</h2>
+        
+        <div class="order-meta">
+          <div>
+            <strong>Order #:</strong> {{orderDetails.id}}
+          </div>
+          <div>
+            <strong>Date:</strong> {{orderDetails.orderDate | date:'medium'}}
+          </div>
+          <div>
+            <strong>Status:</strong> 
+            <span [ngClass]="{
+              'status-paid': orderDetails.status === 'Paid',
+              'status-pending': orderDetails.status === 'Pending'
+            }">
+              {{orderDetails.status}}
+            </span>
+          </div>
+        </div>
+  
+        <div class="order-items">
+          <h3>Items</h3>
+          <div class="item-list">
+            <div *ngFor="let item of orderDetails.items" class="item-row">
+              <div class="item-name">{{item.productName}}</div>
+              <div class="item-quantity">Qty: {{item.quantity}}</div>
+              <div class="item-price">{{formatPrice(item.price)}} {{orderDetails.currency}}</div>
+            </div>
+          </div>
+        </div>
+  
+        <div class="order-total">
+          <strong>Total:</strong> 
+          <span class="total-amount">
+            {{formatPrice(orderDetails.totalAmount)}} {{orderDetails.currency}}
+          </span>
+        </div>
+      </div>
+  
+      <div class="customer-info">
+        <h3>Customer Information</h3>
+        <p><strong>Email:</strong> {{orderDetails.customerEmail}}</p>
+      </div>
+  
+      <button pButton 
+              type="button" 
+              label="Back to Store" 
+              icon="pi pi-arrow-left"
+              [routerLink]="['/groceries']"
+              class="back-button"></button>
+    </div>
+  
+    <div *ngIf="!isLoading && !orderDetails" class="error-message">
+      <i class="pi pi-exclamation-triangle"></i>
+      <p>Unable to load order details. Please check your email for confirmation.</p>
+      <button pButton type="button" label="Back to Store" [routerLink]="['/groceries']"></button>
+    </div>
+  </div>

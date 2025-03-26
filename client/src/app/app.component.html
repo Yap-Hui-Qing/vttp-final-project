@@ -1,0 +1,40 @@
+<p-toast position="top-right"></p-toast>
+@if (showMenuBar){
+    <p-menubar [model]="menuItems" class="main-menu">
+    <ng-template pTemplate="start">
+        <div class="logo-container">
+            <img src="/schedule.png" alt="Logo" class="logo-image">
+            <h2 class="logo-text">PrepEase</h2>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="end">
+        <div class="user-menu-container">
+            <p-button icon="pi pi-user" styleClass="p-button-rounded p-button-text"
+                (click)="toggleUserMenu($event)"></p-button>
+        </div>
+    </ng-template>
+</p-menubar>
+
+<p-overlayPanel #userMenu styleClass="user-menu-panel">
+    <ul class="menu-list">
+        <li class="menu-item"><p-button label="Your profile" icon="pi pi-user" styleClass="p-button-text menu-button"
+                [routerLink]="[`/home/${username}/profile`]"></p-button></li>
+        <li class="menu-item logout-item">
+            <p-button label="Log out" icon="pi pi-sign-out" styleClass="p-button-danger p-button-text menu-button"
+                (click)="logout()" [loading]="isLoggingOut"></p-button>
+        </li>
+    </ul>
+</p-overlayPanel>
+
+<!-- Loading spinner -->
+@if (isLoggingOut) {
+<div class="spinner-overlay">
+    <div class="pulse-loader">
+        <span class="pulse-dot"></span>
+        <span class="pulse-text">Logging out...</span>
+    </div>
+</div>
+}
+}
+
+<router-outlet></router-outlet>

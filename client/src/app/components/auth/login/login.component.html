@@ -1,0 +1,66 @@
+<div class="login-container">
+    <!-- Toast notifications -->
+    <p-toast position="top-right"></p-toast>
+    
+    <!-- Login form -->
+    <form [formGroup]="form" class="login-form" (submit)="onLogin()" [ngClass]="{'hidden': loading}">
+      <h2 class="login-title">Welcome Back</h2>
+      <p class="login-subtitle">Login to continue to your account</p>
+      
+      @if (form.invalid && !form.pristine){
+        <p-message severity="error" icon="pi pi-times-circle" styleClass="validation-message">
+          Validation Failed
+        </p-message>
+      }
+      
+      <div class="form-field">
+        <label for="username" class="field-label">Username</label>
+        <div class="input-container">
+          <i class="pi pi-user input-icon"></i>
+          <input id="username" pInputText placeholder="Enter your username" aria-label="username" formControlName="username" class="styled-input" />
+        </div>
+        @if (form.get('username')?.hasError('required') && form.get('username')?.dirty){
+          <p-message severity="error" variant="simple" size="small" styleClass="field-error">
+            Username is required
+          </p-message>
+        }
+      </div>
+      
+      <div class="form-field">
+        <label for="password" class="field-label">Password</label>
+        <div class="input-container">
+          <i class="pi pi-lock input-icon"></i>
+          <input id="password" type="password" pInputText placeholder="Enter your password" formControlName="password" class="styled-input" />
+          <i class="pi pi-eye-slash toggle-password" (click)="togglePasswordVisibility()"></i>
+        </div>
+        @if (form.get('password')?.hasError('required') && form.get('password')?.dirty){
+          <p-message severity="error" variant="simple" size="small" styleClass="field-error">
+            Password is required
+          </p-message>
+        }
+      </div>
+      
+      <div class="form-actions">
+        <p-button type="submit" [disabled]="form.invalid" styleClass="login-button">
+          Login
+        </p-button>
+      </div>
+      
+      <div class="signup-link">
+        <p>Don't have an account?
+          <button [routerLink]="['/register']" class="register-link">Sign up</button>
+        </p>
+      </div>
+    </form>
+    
+    <!-- Loading spinner -->
+    @if (loading) {
+      <div class="spinner-overlay">
+        <div class="pulse-loader">
+          <span class="pulse-dot"></span>
+          <span class="pulse-text">Signing in...</span>
+        </div>
+      </div>
+    }
+</div>
+  

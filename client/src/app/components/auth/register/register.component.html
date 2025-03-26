@@ -1,0 +1,95 @@
+<div class="signup-container">
+    <!-- Toast notifications -->
+    <p-toast position="top-right"></p-toast>
+    
+    <!-- Signup form -->
+    <form [formGroup]="signupForm" class="signup-form" (submit)="register()" [ngClass]="{'hidden': loading}">
+      <h2 class="signup-title">Create Account</h2>
+      <p class="signup-subtitle">Join us today and get started</p>
+      
+      @if (signupForm.invalid && !signupForm.pristine){
+        <p-message severity="error" icon="pi pi-times-circle" styleClass="validation-message">
+          Validation Failed
+        </p-message>
+      }
+      
+      <div class="form-field">
+        <label for="username" class="field-label">Username</label>
+        <div class="input-container">
+          <i class="pi pi-user input-icon"></i>
+          <input id="username" pInputText placeholder="Choose a username" aria-label="username" formControlName="username" class="styled-input" />
+        </div>
+        @if (signupForm.get('username')?.hasError('required')){
+          <p-message severity="error" variant="simple" size="small" styleClass="field-error">
+            Username is required
+          </p-message>
+        }
+        @if (signupForm.get('username')?.hasError('minLength')){
+          <p-message severity="error" variant="simple" size="small" styleClass="field-error">
+            Username must be at least 3 characters
+          </p-message>
+        }
+      </div>
+
+      <div class="form-field">
+        <label for="password" class="field-label">Password</label>
+        <div class="input-container">
+          <i class="pi pi-lock input-icon"></i>
+          <input id="password" type="password" pInputText placeholder="Create a password" formControlName="password" class="styled-input" />
+          <i class="pi pi-eye-slash toggle-password" (click)="togglePasswordVisibility('password')"></i>
+        </div>
+        @if (signupForm.get('password')?.hasError('required')){
+          <p-message severity="error" variant="simple" size="small" styleClass="field-error">
+            Password is required
+          </p-message>
+        }
+        @if (signupForm.get('password')?.hasError('minLength')){
+          <p-message severity="error" variant="simple" size="small" styleClass="field-error">
+            Password must be at least 3 characters
+          </p-message>
+        }
+      </div>
+      
+      <div class="form-field">
+        <label for="confirmPassword" class="field-label">Confirm Password</label>
+        <div class="input-container">
+          <i class="pi pi-lock input-icon"></i>
+          <input id="confirmPassword" type="password" pInputText placeholder="Confirm your password" formControlName="confirmPassword" class="styled-input" />
+          <i class="pi pi-eye-slash toggle-password" (click)="togglePasswordVisibility('confirmPassword')"></i>
+        </div>
+        @if (signupForm.get('confirmPassword')?.hasError('required')){
+          <p-message severity="error" variant="simple" size="small" styleClass="field-error">
+            Please confirm your password
+          </p-message>
+        }
+        @if (signupForm.hasError('matchPasswords') && signupForm.get('confirmPassword')?.dirty){
+          <p-message severity="error" variant="simple" size="small" styleClass="field-error">
+            Passwords do not match
+          </p-message>
+        }
+      </div>
+      
+      <div class="form-actions">
+        <p-button type="submit" [disabled]="signupForm.invalid || loading" styleClass="signup-button">
+          Create Account
+        </p-button>
+      </div>
+      
+      <div class="login-link">
+        <p>Already have an account?
+          <button [routerLink]="['/login']" class="signin-link">Login</button>
+        </p>
+      </div>
+    </form>
+    
+    <!-- Loading spinner -->
+    @if (loading) {
+      <div class="spinner-overlay">
+        <div class="pulse-loader">
+          <span class="pulse-dot"></span>
+          <span class="pulse-text">Redirecting to login...</span>
+        </div>
+      </div>
+    }
+  </div>
+

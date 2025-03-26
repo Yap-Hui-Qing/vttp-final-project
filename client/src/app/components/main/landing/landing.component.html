@@ -1,0 +1,76 @@
+<p-toolbar class="custom-toolbar mb-4 shadow-2">
+  <ng-template pTemplate="start">
+    <div class="flex align-items-center">
+      <img src="/schedule.png" alt="PrepEase Logo" class="mr-2" width="32" height="32">
+      <span class="text-xl font-medium">PrepEase</span>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="end">
+    <p-button label="Login" styleClass="p-button-text mr-2" [routerLink]="['/login']"></p-button>
+    <p-button label="Register" styleClass="p-button-raised" [routerLink]="['/register']"></p-button>
+  </ng-template>
+</p-toolbar>
+
+<!-- Hero Section -->
+<div class="hero-section">
+  <div class="container text-center p-6 mb-5">
+    <h2 class="text-4xl font-bold mb-3">Meal Planning Made Easy 🍽️🛒</h2>
+    <p class="text-xl line-height-3 mb-5 mx-auto" style="max-width: 30rem;">
+      We've simplified meal planning, grocery shopping, and cooking - just like ordering takeout.
+    </p>
+    <p-button label="Start Planning Now" styleClass="p-button-lg hero-btn" [routerLink]="['/register']">
+    </p-button>
+  </div>
+</div>
+
+<!-- How It Works Section -->
+<div class="how-it-works col-12 px-4">
+  <h3 class="text-2xl font-medium text-center mb-5">How PrepEase Works</h3>
+
+  <div class="grid">
+    <!-- Card 1 -->
+    <div class="col-12 sm:col-12 md:col-6 lg:col-4 p-3">
+      <p-card styleClass="h-full">
+        <ng-template pTemplate="header">
+          <div class="flex justify-content-center p-4">
+            <img src="/recipe-book.png" alt="Personalized Recipes" width="80" height="80">
+          </div>
+        </ng-template>
+        <h4 class="text-xl text-center font-medium mb-3">Personalized Meal Plans</h4>
+        <p class="text-center line-height-3">
+          Pick your own recipes based on your dietary preferences.
+        </p>
+      </p-card>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="col-12 sm:col-12 md:col-6 lg:col-4 p-3">
+      <p-card styleClass="h-full">
+        <ng-template pTemplate="header">
+          <div class="flex justify-content-center p-4">
+            <img src="/grocery.png" alt="Grocery Shopping" width="80" height="80">
+          </div>
+        </ng-template>
+        <h4 class="text-xl text-center font-medium mb-3">One-click Grocery Shopping</h4>
+        <p class="text-center line-height-3">
+          Get an organized shopping list based on your chosen meals and shop directly within the app.
+        </p>
+      </p-card>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="col-12 sm:col-12 md:col-6 lg:col-4 p-3">
+      <p-card styleClass="h-full">
+        <ng-template pTemplate="header">
+          <div class="flex justify-content-center p-4">
+            <img src="/cooking.png" alt="Stress-Free Cooking" width="80" height="80">
+          </div>
+        </ng-template>
+        <h4 class="text-xl text-center font-medium mb-3">Stress-Free Cooking</h4>
+        <p class="text-center line-height-3">
+          Step-by-step instructions and pre-planned ingredients make cooking effortless.
+        </p>
+      </p-card>
+    </div>
+  </div>
+</div>

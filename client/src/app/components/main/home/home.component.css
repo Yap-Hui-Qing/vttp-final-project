@@ -1,0 +1,157 @@
+.home-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #F5F5F5;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Section Container Styles */
+.section-container {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  padding: 20px;
+}
+
+.section-title {
+  color: #4CAF50;
+  border-bottom: 2px solid #4CAF50;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+}
+
+/* Meal Container Styles */
+.meal-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 20px;
+  border: 1px solid #E0E0E0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.meal-header {
+  display: grid;
+  grid-template-areas: 
+    "time title"
+    "time image";
+  grid-template-columns: auto 1fr;
+  gap: 10px;
+  padding: 15px;
+  background-color: #f9f9f9;
+}
+
+.meal-time {
+  grid-area: time;
+  color: #2196F3;
+  font-size: 1.2rem;
+  align-self: center;
+}
+
+.meal-title {
+  grid-area: title;
+  color: #333;
+  margin: 0;
+}
+
+.meal-image {
+  grid-area: image;
+  max-width: 200px;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.meal-details {
+  padding: 15px;
+}
+
+.meal-meta {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  color: #666;
+}
+
+.meal-meta span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.meal-section {
+  margin-bottom: 15px;
+}
+
+.meal-section h4 {
+  color: #4CAF50;
+  border-bottom: 1px solid #E0E0E0;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+}
+
+.ingredient-list, .meal-section ol {
+  padding-left: 20px;
+}
+
+.ingredient-list li, .meal-section ol li {
+  margin-bottom: 5px;
+}
+
+/* No Meals & Empty State Styles */
+.no-meals, .empty-state {
+  text-align: center;
+  padding: 30px;
+  background-color: #F5F5F5;
+  border-radius: 8px;
+}
+
+.action-link {
+  color:  #2196F3;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.action-link:hover {
+  text-decoration: underline;
+}
+
+/* Groceries Table Styles */
+.groceries-container p-table {
+  width: 100%;
+}
+
+/* Responsive Adjustments */
+@media screen and (max-width: 768px) {
+  .meal-header {
+    grid-template-areas: 
+      "time"
+      "title"
+      "image";
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .meal-image {
+    justify-self: center;
+    max-width: 100%;
+  }
+
+  .meal-meta {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+}
+
+/* Toast Notification Styles */
+p-toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}

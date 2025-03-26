@@ -1,0 +1,80 @@
+<p-toast position="top-right"></p-toast>
+<div class="meal-planner">
+    <div class="calendar-sync-container">
+        <h2>Google Calendar Integration</h2>
+
+        <ng-container *ngIf="!(isAuthenticated$ | async); else syncOptions">
+            <button pButton type="button" class="btn btn-primary" (click)="connectGoogleCalendar()">
+                Connect Google Calendar
+            </button>
+        </ng-container>
+
+        <ng-template #syncOptions>
+            <div class="sync-options">
+                <!-- <button 
+              class="btn btn-success" 
+              (click)="syncMealPlans()" 
+              [disabled]="isSyncing">
+              {{ isSyncing ? 'Syncing...' : 'Sync Meal Plans' }}
+            </button> -->
+
+                <button pButton type="button" class="btn btn-danger" (click)="disconnectGoogleCalendar()">
+                    Disconnect
+                </button>
+            </div>
+
+            <div *ngIf="syncMessage" [ngClass]="{
+                 'alert-success': syncMessage.status === 'success',
+                 'alert-danger': syncMessage.status === 'error'
+               }">
+                {{ syncMessage.message }}
+            </div>
+        </ng-template>
+        <div class="header">
+            <button pButton icon="pi pi-chevron-left" (click)="changeWeek(-1)"></button>
+            <span>Current Week: {{ currentWeek }}</span>
+            <button pButton icon="pi pi-chevron-right" (click)="changeWeek(1)"></button>
+        </div>
+
+        <p-table [value]="mealTimes">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th></th>
+                    @for (day of days; track day){
+                    <th>
+                <tr>{{ day.label }}</tr>
+                <tr>{{ day.date }}</tr>
+                </th>
+                }
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-time>
+                <tr>
+                    <td>{{time}}</td>
+                    @for (day of days; track day){
+                    <td>
+                        <div class="meal-box">
+                            <ng-container *ngIf="isFutureDate(day.date); else disabledBox">
+                                <p>{{ getMealForDayAndTime(day.date, time)?.mealDetails?.title || 'No meal' }}</p>
+                                <button pButton icon="pi pi-plus" (click)="addMeal(day.date, time)"
+                                    *ngIf="!getMealForDayAndTime(day.date, time)?.mealDetails?.title"></button>
+                                <button pButton icon="pi pi-trash" (click)="deleteMeal({ mealDate: day.date, mealTime: time })"
+                                    *ngIf="!!getMealForDayAndTime(day.date, time)?.mealDetails?.title"></button>   
+                                <button pButton icon="pi pi-eye" [routerLink]="['/meal-info', getMealForDayAndTime(day.date, time)?.mealDetails?.id]"
+                                *ngIf="!!getMealForDayAndTime(day.date, time)?.mealDetails?.title"></button> 
+                            </ng-container>
+                            <ng-template #disabledBox>
+                                <p *ngIf="getMealForDayAndTime(day.date, time)?.mealDetails?.title as title">
+                                    {{ title }}
+                                </p>
+                            </ng-template>
+                        </div>
+                    </td>
+                    }
+                </tr>
+            </ng-template>
+        </p-table>
+        <button pButton type="button" (click)="savePlan()">Save</button>
+    </div>
+
+</div>

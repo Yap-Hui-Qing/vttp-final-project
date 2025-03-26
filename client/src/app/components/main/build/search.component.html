@@ -1,0 +1,71 @@
+<div class="p-fluid">
+    <h2>Recipe Search</h2>
+    <!-- Show message when no recipes are found -->
+    @if (filteredRecipes.length === 0){
+    <p-message severity="warn" text="No recipes found based on your preferences."></p-message>
+    } @else {
+    <p-dropdown [options]="cuisines" [(ngModel)]="selectedCuisine" (onChange)="applyFilter()"
+        placeholder="Select cuisine">
+    </p-dropdown>
+    <!-- Recipes Table -->
+    <p-table [value]="paginatedRecipes" responsiveLayout="scroll">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Id</th>
+                <th>Image</th>
+                <th>Title</th>
+                <th>Ready In</th>
+                <th>Servings</th>
+                <th>Actions</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-recipe>
+            <tr>
+                <td>{{ recipe.id }}</td>
+                <td>
+                    <img [src]="recipe.image" alt="Recipe Image" width="100">
+                </td>
+                <td>{{ recipe.title }}</td>
+                <td>{{ recipe.readyInMinutes }} min</td>
+                <td>{{ recipe.servings }}</td>
+                <td>
+                    <p-button label="View Details" icon="pi pi-eye" (click)="viewDetails(recipe)"></p-button>
+                    <p-button label="Add" icon="pi pi-plus" (click)="add(recipe)"></p-button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <div class="pagination-controls">
+        <button pButton label="Previous" icon="pi pi-chevron-left" [disabled]="page === 1"
+            (click)="changePage(-1)"></button>
+        <span>Page {{ page }} of {{ totalPages }}</span>
+        <button pButton label="Next" icon="pi pi-chevron-right"
+            [disabled]="page * rowsPerPage >= filteredRecipes.length" (click)="changePage(1)"></button>
+    </div>
+    }
+
+</div>
+
+<p-dialog [(visible)]="displayDialog" header="Recipe Details" [modal]="true" [style]="{width: '50vw'}">
+    <ng-container *ngIf="selectedRecipe">
+        <h3>{{ selectedRecipe.title }}</h3>
+        <img [src]="selectedRecipe.image" alt="Recipe Image" width="100%">
+
+        <h4>Ingredients</h4>
+        <ul>
+            <li *ngFor="let ingredient of selectedRecipe.ingredients">
+                {{ ingredient.name }}
+            </li>
+        </ul>
+
+        <h4>Instructions</h4>
+        <ol>
+            @for (instruction of selectedRecipe.instructions; track $index){
+            <li *ngFor="let key of getInstructionKeys(instruction); let i = index">
+                Step {{ i + 1 }}: {{ instruction[key] }}
+            </li>
+            }
+        </ol>
+    </ng-container>
+</p-dialog>

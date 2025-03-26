@@ -1,0 +1,55 @@
+<div *ngIf="mealDetails$ | async as mealDetails" class="meal-container">
+
+    <button class="back-button" type="button" [routerLink]="['/build', this.username]">Back</button>
+
+    <!-- Meal Header -->
+    <div class="meal-header">
+        <h1>{{ mealDetails.title }}</h1>
+        <div class="meal-meta">
+            <span class="ready-time">
+                <i class="pi pi-clock"></i> {{ mealDetails.readyInMinutes }} mins
+            </span>
+            <span class="servings">
+                <i class="pi pi-users"></i> {{ mealDetails.servings }} servings
+            </span>
+        </div>
+    </div>
+
+    <!-- Meal Image -->
+    <img [src]="mealDetails.image" [alt]="mealDetails.title" class="meal-image">
+
+    <!-- Cuisines -->
+    <div *ngIf="mealDetails.cuisines?.length" class="cuisines">
+        <h3>Cuisines:</h3>
+        <p-tag *ngFor="let cuisine of mealDetails.cuisines" [value]="cuisine.cuisine" styleClass="mr-2"></p-tag>
+    </div>
+
+    <!-- Ingredients -->
+    <div class="ingredients-section">
+        <h2>Ingredients</h2>
+        <p-listbox [options]="mealDetails.ingredients" [style]="{width: '100%'}">
+            <ng-template let-ingredient pTemplate="item">
+                <div class="ingredient-item">
+                    <span class="quantity">{{ ingredient.value || '' }}</span>
+                    <span class="unit">{{ ingredient.unit }}</span>
+                    <span class="name">{{ ingredient.name }}</span>
+                </div>
+            </ng-template>
+        </p-listbox>
+    </div>
+
+    <!-- Instructions -->
+    <h2>Instructions</h2>
+    <ol class="instructions-list">
+        @for (instructionObj of mealDetails.instructions; track $index) {
+          <li>
+            <div class="step-container">
+              <span class="step-number">Step {{ $index + 1 }}:</span>
+              <span class="step-text">
+                {{ instructionObj['step ' + ($index + 1)] || instructionObj[$index + 1] || 'No instruction' }}
+              </span>
+            </div>
+          </li>
+        }
+      </ol>
+</div>

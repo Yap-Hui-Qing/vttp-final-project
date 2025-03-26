@@ -1,0 +1,110 @@
+/* Payment Cancellation Page Styles */
+.cancel-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f4f7f6;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.cancel-card {
+    width: 100%;
+    max-width: 400px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding: 40px 30px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cancel-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+}
+
+.cancel-icon {
+    font-size: 5rem;
+    color: #ff6b6b;
+    margin-bottom: 20px;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.cancel-card h1 {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.cancel-card p {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 25px;
+    font-size: 1rem;
+}
+
+.cancel-card button {
+    background-color: #4ecdc4;
+    border: none;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.cancel-card button:hover {
+    background-color: #45b7aa;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(78, 205, 196, 0.4);
+}
+
+.cancel-card button:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 10px rgba(78, 205, 196, 0.3);
+}
+
+/* Responsive Adjustments */
+@media screen and (max-width: 480px) {
+    .cancel-card {
+        width: 90%;
+        padding: 30px 20px;
+    }
+
+    .cancel-icon {
+        font-size: 4rem;
+    }
+
+    .cancel-card h1 {
+        font-size: 1.5rem;
+    }
+
+    .cancel-card p {
+        font-size: 0.9rem;
+    }
+}
+
+/* Accessibility and Focus States */
+.cancel-card button:focus {
+    outline: 3px solid rgba(78, 205, 196, 0.5);
+    outline-offset: 3px;
+}
